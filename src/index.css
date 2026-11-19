@@ -139,6 +139,71 @@ main::after {
   transition: border-color 0.3s;
 }
 
+/* Wrapper for the bar and its phone menu; layout-neutral so the bar stays sticky. */
+.nav-wrap { display: contents; }
+
+/* Phone menu button (three lines) and its frosted panel, like mannp.com.
+   Hidden on wider screens, where the links sit in the bar. */
+.nav-right { justify-self: end; display: flex; align-items: center; }
+.menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid rgba(238, 241, 248, 0.3);
+  border-radius: 50%;
+  background: none;
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.menu-toggle:focus-visible { outline: none; border-color: #4c7fe3; box-shadow: 0 0 0 3px rgba(76, 127, 227, 0.25); }
+.menu-toggle span,
+.menu-toggle span::before,
+.menu-toggle span::after {
+  content: '';
+  display: block;
+  position: relative;
+  width: 16px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 0.3s var(--ease-reveal), background 0.2s;
+}
+.menu-toggle span::before { position: absolute; top: -5px; }
+.menu-toggle span::after { position: absolute; top: 5px; }
+.menu-toggle.open span { background: transparent; }
+.menu-toggle.open span::before { transform: translateY(5px) rotate(45deg); }
+.menu-toggle.open span::after { transform: translateY(-5px) rotate(-45deg); }
+.menu-panel {
+  position: fixed;
+  z-index: 9;
+  top: 68px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem;
+  background: rgba(10, 15, 26, 0.5);
+  backdrop-filter: blur(14px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.6);
+  animation: menu-in 0.3s var(--ease-reveal);
+}
+.menu-panel[hidden] { display: none; }
+.menu-panel a {
+  padding: 0.6rem 0.5rem;
+  font: 600 15px var(--font-head);
+  color: rgba(238, 241, 248, 0.72);
+  text-decoration: none;
+}
+.menu-panel a.active { color: var(--text); }
+@keyframes menu-in { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .menu-panel { animation: none; } }
+
 /* Blue wash that fades in once you start scrolling. */
 .nav::before {
   content: '';
@@ -1028,9 +1093,20 @@ h3 {
   .case-top { grid-template-columns: 1fr; }
   .case-media { aspect-ratio: 2 / 1; }
   .case-steps { grid-template-columns: 1fr; gap: 16px; }
-  .case-steps::before { top: 36px; bottom: 36px; left: 41px; right: auto; width: 2px; height: auto;
-    background: linear-gradient(180deg, #5b8ff0, #2f58b8 55%, rgba(22, 38, 74, 0.6)); }
-  .case-step { display: grid; grid-template-columns: 28px 1fr; column-gap: 14px; }
+  /* Stacked: a short line runs from each circle's center to the next one,
+     so it stays centered on 01-03 and stops at the last circle. */
+  .case-steps::before { display: none; }
+  .case-step { display: grid; grid-template-columns: 28px 1fr; column-gap: 14px; position: relative; }
+  .case-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    left: 13px;
+    top: 14px;
+    bottom: -30px;
+    width: 2px;
+    background: linear-gradient(180deg, #5b8ff0, #2f58b8);
+  }
   .case-step-node { grid-row: span 2; margin: 0; }
 }
 
@@ -1045,7 +1121,7 @@ h3 {
       "tag  tag"
       "act  act";
     align-items: center;
-    column-gap: 16px;
+    column-gap: 28px;
     min-height: 0;
     padding: 40px 0 64px;
   }
@@ -1065,10 +1141,11 @@ h3 {
 
 @media (max-width: 600px) {
   .nav { margin: 10px 12px 0; top: 10px; height: 48px; padding: 0 12px; }
-  .nav { grid-template-columns: 1fr; }
-  .nav > span, .wordmark { display: none; }
-  .nav nav { gap: 13px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
-  .nav nav a { font-size: 13px; white-space: nowrap; }
+  /* Phones: "Meet Patel" fades in on the left once scrolled, the menu button
+     sits on the right, and the section links move into the menu panel. */
+  .nav { grid-template-columns: 1fr auto; padding: 0 6px 0 18px; }
+  .nav nav { display: none; }
+  .menu-toggle { display: flex; }
   .job { grid-template-columns: 1fr; gap: 10px; }
   .logo { width: 96px; height: 44px; }
   .logo-fallback { width: 44px; }

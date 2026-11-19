@@ -453,8 +453,30 @@ export default function App() {
   const [resumeOpen, setResumeOpen] = useState(false)
   const closeResume = useCallback(() => setResumeOpen(false), [])
   useScrollEffects(setActive, setScrolled)
+
+  // Phone menu (three-line button), like mannp.com. Closes on a link tap,
+  // Esc, a tap outside, or when the screen gets wide enough for the links.
+  const [menuOpen, setMenuOpen] = useState(false)
+  const menuRef = useRef(null)
+  useEffect(() => {
+    if (!menuOpen) return
+    const onKey = (e) => e.key === 'Escape' && setMenuOpen(false)
+    const onDown = (e) => !menuRef.current?.contains(e.target) && setMenuOpen(false)
+    const wide = window.matchMedia('(min-width: 601px)')
+    const onWide = () => wide.matches && setMenuOpen(false)
+    window.addEventListener('keydown', onKey)
+    document.addEventListener('pointerdown', onDown)
+    wide.addEventListener('change', onWide)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.removeEventListener('pointerdown', onDown)
+      wide.removeEventListener('change', onWide)
+    }
+  }, [menuOpen])
+
   return (
     <>
+      <div ref={menuRef} className="nav-wrap">
       <header className={`nav${scrolled ? ' scrolled' : ''}`}>
         <a href="#top" className="wordmark" tabIndex={scrolled ? 0 : -1}>
           {c.name}
@@ -466,8 +488,32 @@ export default function App() {
             </a>
           ))}
         </nav>
-        <span aria-hidden="true" />
+        <div className="nav-right">
+          <button
+            type="button"
+            className={`menu-toggle${menuOpen ? ' open' : ''}`}
+            aria-label={menuOpen ? 'Close section menu' : 'Open section menu'}
+            aria-expanded={menuOpen}
+            aria-controls="menu-panel"
+            onClick={() => setMenuOpen((o) => !o)}
+          >
+            <span />
+          </button>
+        </div>
       </header>
+      <div id="menu-panel" className={`menu-panel${menuOpen ? ' open' : ''}`} hidden={!menuOpen}>
+        {sections.map((s) => (
+          <a
+            key={s.id}
+            href={`#${s.id}`}
+            className={active === s.id ? 'active' : undefined}
+            onClick={() => setMenuOpen(false)}
+          >
+            {s.label}
+          </a>
+        ))}
+      </div>
+      </div>
 
       <main id="top">
         <section className="hero">
