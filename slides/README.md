@@ -9,3 +9,7 @@ section in `build.py`, then run:
 and copy the PNG into `public/work/`. Pages: cdl-architecture, remediation-progress,
 failure-modes, pmo-stage-gates, copilot-agent, draft-board. The draft-board slide uses
 `draft/board-shot.png`, a screenshot of The Two-Flex Board artifact.
+
+The browser-tab icon comes from `favicon.html`: render it to `favicon-512.png` with the
+same Edge command (512x512 window, scale factor 1), then resize to `public/favicon-32.png`
+and `public/favicon-180.png`.
