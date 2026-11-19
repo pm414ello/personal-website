@@ -1,0 +1,55 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=block" rel="stylesheet">
+<style>
+:root { --accent:#1d5bd6; --accent-soft:#e8effc; --gold:#b8892a; --gold-soft:#fbf3e2;
+        --ink:#141a26; --muted:#4a5263; --rule:#e3e7ef; --zebra:#f6f8fb; }
+* { box-sizing:border-box; margin:0; padding:0; }
+html, body { width:1600px; height:800px; }
+body { background:#fff; color:var(--ink); font:400 19px/1.45 Inter, sans-serif;
+       padding:64px 72px 0; position:relative; overflow:hidden; }
+body::before { content:''; position:absolute; left:0; top:0; bottom:0; width:10px; background:var(--accent); }
+.eyebrow { font:700 14px Manrope, sans-serif; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); }
+h1 { font:800 46px/1.1 Manrope, sans-serif; letter-spacing:-.02em; margin:10px 0 8px; }
+.sub { color:var(--muted); font-size:20px; max-width:1150px; }
+.foot { position:absolute; left:72px; right:72px; bottom:30px; display:flex; justify-content:space-between;
+        font-size:14px; color:var(--muted); border-top:1px solid var(--rule); padding-top:12px; }
+.foot b { color:var(--accent); font-weight:600; }
+.label { font:700 13px Manrope, sans-serif; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); white-space:nowrap; }
+.tiles { display:grid; gap:16px; }
+.tile { border:1px solid var(--rule); border-radius:14px; padding:18px 20px; }
+.tile .n { font:800 40px/1 Manrope, sans-serif; letter-spacing:-.02em; color:var(--accent); font-variant-numeric:tabular-nums; }
+.tile .c { font-size:15px; color:var(--muted); margin-top:8px; line-height:1.35; }
+.tile.key { background:var(--accent); border-color:var(--accent); }
+.tile.key .n, .tile.key .c { color:#fff; }
+.callout { background:var(--gold-soft); border-radius:14px; padding:16px 20px; }
+.callout .t { font:700 13px Manrope, sans-serif; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:6px; }
+.callout p { font-size:16px; color:#3b3323; }
+.num { flex:none; width:38px; height:38px; border-radius:50%; background:var(--accent); color:#fff;
+       display:grid; place-items:center; font:800 17px Manrope, sans-serif; }
+.step { display:flex; gap:14px; align-items:flex-start; }
+.step h3 { font:700 19px Manrope, sans-serif; margin-top:6px; }
+.step p { font-size:15.5px; color:var(--muted); margin-top:2px; }
+</style></head><body>
+<p class="eyebrow">PMO Toolkit · Reusable Templates</p><h1>Stage-Gate Tracker</h1><p class="sub">One view of every deliverable across the four stages, with status rolled up per stage, so leaders can compare programs at a glance.</p>
+<style>
+.stages { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:28px; }
+.stage { border:1px solid var(--rule); border-radius:16px; overflow:hidden; display:flex; flex-direction:column; }
+.st-h { background:var(--accent-soft); padding:14px 18px; border-bottom:1px solid var(--rule); }
+.st-h h3 { font:800 22px Manrope, sans-serif; margin-top:2px; }
+.stage ul { list-style:none; padding:6px 18px; flex:1; }
+.stage li { display:flex; justify-content:space-between; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid var(--rule); font-size:16px; }
+.stage li:last-child { border-bottom:0; }
+em { font:600 12.5px Inter; font-style:normal; padding:4px 10px; border-radius:999px; white-space:nowrap; }
+.ok { background:#dcecff; color:#1d4fb8; } .go { background:#fbefd5; color:#8a6418; } .no { background:#eef0f4; color:#5b6372; }
+.roll { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--rule); background:var(--zebra); }
+.roll div { padding:10px 6px; text-align:center; font-size:12.5px; color:var(--muted); white-space:nowrap; }
+.roll b { display:block; font:800 22px Manrope, sans-serif; background:none; }
+.roll b.ok { color:#1d4fb8; } .roll b.go { color:#a87a1c; } .roll b.no { color:#7a8191; }
+.kit { display:flex; gap:12px; align-items:center; margin-top:22px; }
+.kit span { border:1px solid var(--rule); border-radius:999px; padding:6px 14px; font-size:14.5px; color:var(--muted); white-space:nowrap; }
+</style>
+<div class="stages"><div class="stage"><div class="st-h"><span class="label">Stage 1</span><h3>Planning</h3></div><ul><li><span>Project Charter</span><em class="ok">Complete</em></li><li><span>Requirements</span><em class="ok">Complete</em></li><li><span>Budget Approval</span><em class="go">In Progress</em></li><li><span>Resource Plan</span><em class="go">In Progress</em></li><li><span>Risk Register</span><em class="go">In Progress</em></li></ul><div class="roll"><div><b class="ok">2</b>Complete</div><div><b class="go">3</b>In Progress</div><div><b class="no">0</b>Not Started</div></div></div><div class="stage"><div class="st-h"><span class="label">Stage 2</span><h3>Development</h3></div><ul><li><span>Solution Design</span><em class="go">In Progress</em></li><li><span>Build</span><em class="go">In Progress</em></li><li><span>Integrations</span><em class="no">Not Started</em></li><li><span>Data Migration</span><em class="no">Not Started</em></li></ul><div class="roll"><div><b class="ok">0</b>Complete</div><div><b class="go">2</b>In Progress</div><div><b class="no">2</b>Not Started</div></div></div><div class="stage"><div class="st-h"><span class="label">Stage 3</span><h3>Validation</h3></div><ul><li><span>Test Plan</span><em class="no">Not Started</em></li><li><span>UAT</span><em class="no">Not Started</em></li><li><span>Sign-Off</span><em class="no">Not Started</em></li></ul><div class="roll"><div><b class="ok">0</b>Complete</div><div><b class="go">0</b>In Progress</div><div><b class="no">3</b>Not Started</div></div></div><div class="stage"><div class="st-h"><span class="label">Stage 4</span><h3>Implementation</h3></div><ul><li><span>Training</span><em class="go">In Progress</em></li><li><span>Go-Live</span><em class="no">Not Started</em></li><li><span>Hypercare</span><em class="no">Not Started</em></li></ul><div class="roll"><div><b class="ok">0</b>Complete</div><div><b class="go">1</b>In Progress</div><div><b class="no">2</b>Not Started</div></div></div></div>
+<div class="kit"><span class="label" style="border:0;padding:0;color:var(--gold)">Also in the Kit</span><span>Roadmaps</span><span>Timelines</span><span>Status Reports</span><span>Risk Register</span><span>Milestone Trackers</span><span style="margin-left:auto;border:0;font-style:italic">Template shown with sample items</span></div>
+
+<div class="foot"><span>Meet Patel · Portfolio</span><b>PMO Toolkit</b></div>
+</body></html>
